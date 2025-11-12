@@ -573,8 +573,10 @@ def main(
         ostree_map, ostree_hash = get_ostree_map(repo, ref)
 
         # Use the database by pulling it from ostree
+        # We're not on rpm-ostree
+        # todo: load either from /usr/share or /usr/lib
         packages = run_with_ostree_files(
-            repo, ostree_map, ["/usr/share/rpm/rpmdb.sqlite"], get_packages
+            repo, ostree_map, ["/usr/lib/sysimage/rpm/rpmdb.sqlite"], get_packages
         )
         logger.info(f"Found {len(packages)} packages.")
         if _cache is not None:
